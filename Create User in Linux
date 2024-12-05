@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Prompt for username
+read -p "Enter the username to create: " username
+
+# Check if the user already exists
+if id "$username" &>/dev/null; then
+    echo "User '$username' already exists."
+    exit 1
+fi
+
+# Create the user
+sudo useradd -m "$username" -s /bin/bash
+if [ $? -eq 0 ]; then
+    echo "User '$username' created successfully."
+    
+    # Optionally, set a password for the user
+    read -p "Do you want to set a password for $username? (y/n): " choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        sudo passwd "$username"
+    else
+        echo "User created without setting a password."
+    fi
+else
+    echo "Failed to create user '$username'."
+    exit 1
+fi
