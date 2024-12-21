@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#variables
+BASE=/home/
+DAYS=10
+DEPTH=1
+RUN=0
+
+if [[ ! -d $base ]]
+then
+  echo "directory is not present: $BASE"
+  exit 1
+fi
+
+if [[ ! -d $BASE/archive ]]
+then
+  mkdir $BASE/archive
+fi
+
+for i in "find $BASE -maxdepth $DEPTH -type f -size +2000"
+do  if [[ $RUN -eq 0 ]]
+    then  echo 
