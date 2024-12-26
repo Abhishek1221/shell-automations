@@ -1,0 +1,30 @@
+<< com
+Purpose: Monitors server CPU, memory, and disk usage and sends an email alert if thresholds are breached.
+Key Features:
+Periodic health checks.
+Sends alerts for resource utilization breaches.
+com
+
+#!/bin/bash
+THRESHOLD_CPU=80
+THRESHOLD_MEM=90
+THRESHOLD_DISK=90
+EMAIL="admin@example.com"
+
+# Check CPU usage
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+if (( $(echo "$CPU_USAGE > $THRESHOLD_CPU" | bc -l) )); then
+    echo "High CPU usage: $CPU_USAGE%" | mail -s "CPU Alert" "$EMAIL"
+fi
+
+# Check memory usage
+MEM_USAGE=$(free | awk '/Mem/ {print $3/$2 * 100.0}')
+if (( $(echo "$MEM_USAGE > $THRESHOLD_MEM" | bc -l) )); then
+    echo "High memory usage: $MEM_USAGE%" | mail -s "Memory Alert" "$EMAIL"
+fi
+
+# Check disk usage
+DISK_USAGE=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
+if [ "$DISK_USAGE" -gt "$THRESHOLD_DISK" ]; then
+    echo "High disk usage: $DISK_USAGE%" | mail -s "Disk Alert" "$EMAIL"
+fi
