@@ -1,0 +1,16 @@
+#!/bin/bash
+LOG_DIR="/var/log/myapp"
+ARCHIVE_DIR="/backup/logs/myapp"
+DAYS_TO_KEEP=30
+
+# Ensure directories exist
+mkdir -p "$ARCHIVE_DIR"
+
+# Rotate logs older than 7 days
+find "$LOG_DIR" -type f -mtime +7 -exec gzip {} \;
+find "$LOG_DIR" -type f -name "*.gz" -exec mv {} "$ARCHIVE_DIR" \;
+
+# Clean up old archives
+find "$ARCHIVE_DIR" -type f -mtime +$DAYS_TO_KEEP -exec rm -f {} \;
+
+echo "Log rotation completed on $(date)"
