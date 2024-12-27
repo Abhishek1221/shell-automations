@@ -1,10 +1,3 @@
-<< com
-Purpose: Monitors server CPU, memory, and disk usage and sends an email alert if thresholds are breached.
-Key Features:
-Periodic health checks.
-Sends alerts for resource utilization breaches.
-com
-
 #!/bin/bash
 THRESHOLD_CPU=80
 THRESHOLD_MEM=90
@@ -28,3 +21,10 @@ DISK_USAGE=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
 if [ "$DISK_USAGE" -gt "$THRESHOLD_DISK" ]; then
     echo "High disk usage: $DISK_USAGE%" | mail -s "Disk Alert" "$EMAIL"
 fi
+
+<<com
+Purpose: Monitors server CPU, memory, and disk usage and sends an email alert if thresholds are breached.
+Key Features:
+Periodic health checks.
+Sends alerts for resource utilization breaches.
+com
