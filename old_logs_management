@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #variables
 BASE=/home/
 DAYS=10
@@ -19,4 +18,5 @@ fi
 
 for i in "find $BASE -maxdepth $DEPTH -type f -size +2000"
 do  if [[ $RUN -eq 0 ]]
-    then  echo 
+    then  echo ""
+done
