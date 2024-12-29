@@ -1,7 +1,6 @@
 #!/bin/bash -xe
 #
-<<com jenkins backup scripts
-https://github.com/sue445/jenkins-backup-script
+<<com jenkins backup script
 Usage: ./jenkins-backup.sh /path/to/jenkins_home /path/to/destination/archive.tar.gz
 com
 
