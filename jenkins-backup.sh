@@ -44,9 +44,9 @@ function backup_jobs() {
   fi
 }
 
-
-
-
+function cleanup() {
+  rm -rf "${ARC_DIR}"
+}
 
 function main() {
   if [ -z "${JENKINS_HOME}" -o -z "${DEST_FILE}" ] ; then
